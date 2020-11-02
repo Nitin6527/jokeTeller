@@ -1,6 +1,9 @@
 // VoiceRSS Javascript SDK
 const button = document.getElementById('button');
 const audioElement = document.getElementById('audio');
+const heading = document.getElementById('heading');
+
+heading.classList.add('headingDisable');
 
 "use strict";
 var VoiceRSS = {
@@ -76,12 +79,15 @@ var VoiceRSS = {
 };
 
 function toggleButton(){
+  	heading.classList.remove('headingDisable');
+    heading.classList.add('heading');
   button.disabled = !button.disabled;
 }
 
 
 
 function tellMe(joke){
+	heading.textContent = joke;
     VoiceRSS.speech({
       key: 'b1dc203888534c30a6638396ae0ec628',
       src: joke,
@@ -109,6 +115,8 @@ async function getJoke(){
     }
     tellMe(joke);
     toggleButton();
+    heading.classList.remove('heading');
+    heading.classList.add('headingDisable');
   }catch(err){
     console.log('whoops',err)
   }
@@ -116,3 +124,4 @@ async function getJoke(){
 
 button.addEventListener('click',getJoke);
 audioElement.addEventListener('ended',toggleButton);
+
